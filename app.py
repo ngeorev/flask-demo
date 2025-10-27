@@ -1,16 +1,28 @@
-from flask import Flask
-import socket
+from flask import Flask, request, jsonify
+import psycopg2
 
 app = Flask(__name__)
 
+DB_CONFIG = {
+    'host': 'db-server', 
+    'database': 'flaskdb',
+    'user': 'flaskuser',
+    'password': 'flaskpass'
+}
+
 @app.route('/')
 def home():
-    hostname = socket.gethostname()
-    return f"Hello from Flask running on {hostname}!"
+    return "Hello from Flask with PostgreSQL backend!"
 
-@app.route('/health')
-def health():
-    return {"status": "ok"}, 200
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+@app.route('/users')
+def users():
+    try:
+        conn = psycopg2.connect(**DB_CONFIG)
+        cur = conn.cursor()
+        cur.execute("SELECT version();")
+        version = cur.fetchone()
+        cur.close()
+        conn.close()
+        return jsonify({'db_version': version[0]})
+    except Exception as e:
+        return jsonify({'error': str(e)})
