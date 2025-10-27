@@ -4,7 +4,7 @@ import psycopg2
 app = Flask(__name__)
 
 DB_CONFIG = {
-    'host': 'db-server', 
+    'host': 'db-server',
     'database': 'flaskdb',
     'user': 'flaskuser',
     'password': 'flaskpass'
@@ -23,7 +23,9 @@ def users():
         version = cur.fetchone()
         cur.close()
         conn.close()
-        return jsonify({'db_version': version[0]})
+        return jsonify([
+            {'id': r[0], 'name': r[1], 'email': r[2]} for r in rows
+        ])
     except Exception as e:
         return jsonify({'error': str(e)})
 
