@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = "flask-demo"
         IMAGE_TAG = "latest"
         DEPLOY_HOST = "web-app"  
-        DEPLOY_USER = "niko"   
+        DEPLOY_USER = "jenkins"   
 
     stages {
         stage('Checkout') {
