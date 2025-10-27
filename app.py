@@ -19,8 +19,8 @@ def users():
     try:
         conn = psycopg2.connect(**DB_CONFIG)
         cur = conn.cursor()
-        cur.execute("SELECT version();")
-        version = cur.fetchone()
+        cur.execute("SELECT id, name, email FROM users;")
+        rows = cur.fetchall()
         cur.close()
         conn.close()
         return jsonify([
