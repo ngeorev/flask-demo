@@ -15,7 +15,7 @@ REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing requ
 
 @app.route('/')
 def home():
-    return "Hello from Flask with PostgreSQL backend!"
+    return "Hello from Flask with PostgreSQL backend and for the sake of the experiment!"
 
 @app.route('/users')
 @REQUEST_TIME.time()  
