@@ -4,8 +4,8 @@ pipeline {
     environment {
         IMAGE_NAME = "flask-demo"
         IMAGE_TAG = "latest"
-        DEPLOY_HOST = "web-app"   // or IP of your web-app VM
-        DEPLOY_USER = "jenkins"    // your SSH user
+        DEPLOY_HOST = "web-app"   
+        DEPLOY_USER = "niko"    
     }
 
     stages {
