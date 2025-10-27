@@ -32,7 +32,7 @@ pipeline {
                 sshagent(credentials: ['webapp-ssh-key']) {
                     sh """
                     ssh ${DEPLOY_USER}@${DEPLOY_HOST} 'docker stop ${IMAGE_NAME} || true && docker rm ${IMAGE_NAME} || true'
-                    scp Dockerfile ${DEPLOY_USER}@${DEPLOY_HOST}:/home/${DEPLOY_USER}/
+                    scp -r * ${DEPLOY_USER}@${DEPLOY_HOST}:/home/${DEPLOY_USER}/
                     ssh ${DEPLOY_USER}@${DEPLOY_HOST} 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} /home/${DEPLOY_USER}/ && docker run -d -p 5000:5000 --name ${IMAGE_NAME} ${IMAGE_NAME}:${IMAGE_TAG}'
                     """
                 }
